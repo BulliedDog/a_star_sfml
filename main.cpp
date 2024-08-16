@@ -3,6 +3,8 @@
 #include <queue>
 #include <cmath>
 #include <unordered_set>
+#include <cstdlib>
+#include <ctime>
 
 class Nodo {
 public:
@@ -42,6 +44,25 @@ public:
         for (int x = 0; x < larghezza; ++x)
             for (int y = 0; y < altezza; ++y)
                 griglia[x][y] = Nodo(x, y);
+    }
+
+    void genera_ostacoli_randomici(int num_ostacoli) {
+        srand(static_cast<unsigned int>(time(0)));
+        int ostacoli_generati = 0;
+        while (ostacoli_generati < num_ostacoli) {
+            int x = rand() % larghezza;
+            int y = rand() % altezza;
+
+            // Evitare di generare ostacoli nella posizione di partenza e arrivo
+            if ((x == 0 && y == 0) || (x == larghezza - 1 && y == altezza - 1)) {
+                continue;
+            }
+
+            if (griglia[x][y].traversabile) {
+                griglia[x][y].traversabile = false;
+                ostacoli_generati++;
+            }
+        }
     }
 
     std::vector<Nodo*> nodo_vicini(Nodo& nodo) {
@@ -130,9 +151,8 @@ int main() {
     const int larghezza = 20, altezza = 20;
     Griglia griglia(larghezza, altezza);
 
-    for (int i = 5; i < 15; ++i) {
-        griglia.griglia[i][10].traversabile = false;
-    }
+    // Generare ostacoli randomici
+    griglia.genera_ostacoli_randomici(50); // Genera 50 ostacoli randomici
 
     Nodo* start = &griglia.griglia[0][0];
     Nodo* goal = &griglia.griglia[19][19];
