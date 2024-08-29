@@ -1,12 +1,6 @@
 # ninja log v5
-2	291	7454394915708953	build.ninja	7b3fe263b655b564
-5	861	7454393034459561	CMakeFiles/a_star_sfml.dir/main.cpp.obj	37e041a5edffd9b2
-862	1019	7454393036013762	a_star_sfml.exe	feef89bf269c6944
-8	2105	7454993901786076	CMakeFiles/a_star_sfml.dir/main.cpp.obj	37e041a5edffd9b2
-2106	2740	7454993908019383	a_star_sfml.exe	feef89bf269c6944
-15	1189	7454996466727542	CMakeFiles/a_star_sfml.dir/main.cpp.obj	37e041a5edffd9b2
-1190	1380	7454996468605452	a_star_sfml.exe	feef89bf269c6944
-24	3238	7454999055076200	CMakeFiles/a_star_sfml.dir/main.cpp.obj	37e041a5edffd9b2
-3239	3573	7454999058377372	a_star_sfml.exe	feef89bf269c6944
-6	2553	7455011594713488	CMakeFiles/a_star_sfml.dir/main.cpp.obj	37e041a5edffd9b2
-2554	2888	7455011597884991	a_star_sfml.exe	feef89bf269c6944
+2	291	7466226015172080	build.ninja	7b3fe263b655b564
+7	1293	7466219932664258	CMakeFiles/a_star_sfml.dir/main.cpp.obj	37e041a5edffd9b2
+1294	1465	7466219934359633	a_star_sfml.exe	feef89bf269c6944
+6	1267	7466228488425727	CMakeFiles/a_star_sfml.dir/main.cpp.obj	37e041a5edffd9b2
+1268	1488	7466228490589518	a_star_sfml.exe	feef89bf269c6944
