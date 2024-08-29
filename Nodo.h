@@ -4,7 +4,7 @@ class Nodo {
 public:
     int x, y;
     bool traversabile;
-    float g, h, f;
+    float g, h, f; //g costo da start a nodo corrente, h costo da nodo corrente a goal, f=g+h costo totale passando da nodo corrente
     Nodo* genitore;
 
     Nodo(int x, int y, bool traversabile = true)

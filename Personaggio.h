@@ -8,6 +8,11 @@
 #include <vector>
 #include <queue>
 #include <cmath>
+struct CompareNodo {
+    bool operator()(const Nodo* lhs, const Nodo* rhs) const {
+        return lhs->f > rhs->f;  // Min-heap: smallest f value has the highest priority
+    }
+};
 class Personaggio {
 public:
     Griglia& griglia;
@@ -20,7 +25,7 @@ public:
             : griglia(griglia), start(start), goal(goal) {}
 
     void a_star() {
-        std::priority_queue<Nodo*> open_set;
+        std::priority_queue<Nodo*,std::vector<Nodo*>,CompareNodo> open_set; //Uso compare nodo per far sì che priority_queu ordini con f più piccolo
         start->g = 0;
         start->h = griglia.calcola_h(*start, *goal);
         start->f = start->g + start->h;
@@ -39,6 +44,7 @@ public:
 
             auto vicini = griglia.nodo_vicini(*current_node);
             for (auto vicino : vicini) {
+
                 if (!vicino->traversabile || closed_set.count(vicino))
                     continue; //salta al loop successivo
 
