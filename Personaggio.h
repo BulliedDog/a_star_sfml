@@ -40,7 +40,7 @@ public:
             auto vicini = griglia.nodo_vicini(*current_node);
             for (auto vicino : vicini) {
                 if (!vicino->traversabile || closed_set.count(vicino))
-                    continue;
+                    continue; //salta al loop successivo
 
                 float nuovo_g = current_node->g + 1;
                 if (nuovo_g < vicino->g || vicino->g == 0) {

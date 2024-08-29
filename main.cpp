@@ -3,11 +3,18 @@
 #include"Nodo.h"
 #include"Griglia.h"
 #include"Personaggio.h"
+#include "gtest/gtest.h"
 
 int main() {
+    ::testing::InitGoogleTest();
+    RUN_ALL_TESTS();
+
     const int larghezza = 20, altezza = 20;
     Griglia griglia(larghezza, altezza);
-
+    ///////////////////
+    //CASO IN CUI NON ESISTE PERCORSO!
+    //griglia.griglia[0][1].traversabile=false;griglia.griglia[1][0].traversabile=false;
+    ///////////////////
     // Generare ostacoli randomici
     griglia.genera_ostacoli_randomici(50); // Genera 50 ostacoli randomici
 
