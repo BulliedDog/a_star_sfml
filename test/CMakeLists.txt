@@ -1,11 +1,9 @@
 cmake_minimum_required(VERSION 3.24)
-project(a_star_sfml)
+project(test)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(a_star_sfml main.cpp)
-
-add_executable(run_tests test/test.cpp)
+add_executable(test test.cpp)
 
 set(SFML_DIR "C:/SFML/lib/cmake/SFML")
 
@@ -17,15 +15,7 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
 add_library(tests STATIC test/test.cpp)
 
-target_link_libraries(a_star_sfml
-        sfml-system
-        sfml-window
-        sfml-graphics
-        sfml-audio
-        sfml-network
-        gtest
-        )
-target_link_libraries(tests
+target_link_libraries(test
         sfml-system
         sfml-window
         sfml-graphics
@@ -34,5 +24,3 @@ target_link_libraries(tests
         gtest
         gtest_main
         )
-target_link_libraries(run_tests tests)
-add_test(NAME Test COMMAND run_tests)

@@ -4,6 +4,10 @@
 #include"../Nodo.h"
 #include"../Griglia.h"
 #include"../Personaggio.h"
+int main(){
+    ::testing::InitGoogleTest();
+    return RUN_ALL_TESTS();
+}
 TEST(NodoTest, Constructor) {
     Nodo nodo(1, 2, true);
 
@@ -101,10 +105,10 @@ TEST(PersonaggioTestPercorsoMigliore, AStarFindsPath) {
 
     personaggio.a_star();
 
-    EXPECT_FALSE(personaggio.percorso.empty());
-    EXPECT_EQ(personaggio.percorso.size(), 5); //Mi aspetto che il percorso sia composto da 5 nodi e non 5+4+4 overo l'altro unico percorso
-    EXPECT_EQ(personaggio.percorso.front(), goal);
-    EXPECT_EQ(personaggio.percorso.back(), start);
+    EXPECT_FALSE(personaggio.get_percorso().empty());
+    EXPECT_EQ(personaggio.get_percorso().size(), 5); //Mi aspetto che il percorso sia composto da 5 nodi e non 5+4+4 overo l'altro unico percorso
+    EXPECT_EQ(personaggio.get_percorso().front(), goal);
+    EXPECT_EQ(personaggio.get_percorso().back(), start);
 }
 TEST(PersonaggioTest, AStarFindsPath) {
     //Test con tutte caselle libere
@@ -115,9 +119,9 @@ TEST(PersonaggioTest, AStarFindsPath) {
 
     personaggio.a_star();
 
-    EXPECT_FALSE(personaggio.percorso.empty());
-    EXPECT_EQ(personaggio.percorso.front(), goal);
-    EXPECT_EQ(personaggio.percorso.back(), start);
+    EXPECT_FALSE(personaggio.get_percorso().empty());
+    EXPECT_EQ(personaggio.get_percorso().front(), goal);
+    EXPECT_EQ(personaggio.get_percorso().back(), start);
 }
 
 TEST(PersonaggioTest, AStarHandlesObstacles) {
@@ -135,5 +139,5 @@ TEST(PersonaggioTest, AStarHandlesObstacles) {
     Personaggio personaggio(griglia, start, goal);
     personaggio.a_star();
 
-    EXPECT_TRUE(personaggio.percorso.empty()); //Effettua sempre open_set.pop() perché non trova il percorso adatto
+    EXPECT_TRUE(personaggio.get_percorso().empty()); //Effettua sempre open_set.pop() perché non trova il percorso adatto
 }

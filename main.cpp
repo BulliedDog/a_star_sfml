@@ -6,9 +6,6 @@
 #include "gtest/gtest.h"
 
 int main() {
-    ::testing::InitGoogleTest();
-    RUN_ALL_TESTS();
-
     const int larghezza = 20, altezza = 20;
     Griglia griglia(larghezza, altezza);
     ///////////////////
@@ -18,7 +15,7 @@ int main() {
     griglia.genera_ostacoli_randomici(50);
 
     Nodo* start = &griglia.griglia[0][0]; //Colore Blue
-    Nodo* goal = &griglia.griglia[19][0]; //Colore Verde
+    Nodo* goal = &griglia.griglia[19][19]; //Colore Verde
 
     Personaggio personaggio(griglia, start, goal);
     personaggio.a_star();

@@ -15,6 +15,11 @@ struct CompareNodo {
 };
 class Personaggio {
 private:
+    Griglia& griglia;
+    Nodo* start;
+    Nodo* goal;
+    std::vector<Nodo*> percorso;
+    std::unordered_set<Nodo*> closed_set;
     //reso metodo privato poiché chiamato soltanto da metodo a_star()
     void costruisci_percorso(Nodo* nodo) {
         while (nodo != nullptr) {
@@ -23,12 +28,6 @@ private:
         }
     }
 public:
-    Griglia& griglia;
-    Nodo* start;
-    Nodo* goal;
-    std::vector<Nodo*> percorso;
-    std::unordered_set<Nodo*> closed_set;
-
     Personaggio(Griglia& griglia, Nodo* start, Nodo* goal)
             : griglia(griglia), start(start), goal(goal) {}
 
@@ -77,5 +76,15 @@ public:
             window.draw(cerchio);
         }
     }
+    Griglia& get_griglia() {return griglia;}
+    void set_griglia(Griglia& g) {this->griglia=g;}
+    Nodo* get_start() {return start;}
+    void set_start(Nodo* s) {this->start=s;}
+    Nodo* get_goal() {return goal;}
+    void set_goal(Nodo* g) {this->goal=g;}
+    std::vector<Nodo*>& get_percorso() {return percorso;}
+    void set_percorso(const std::vector<Nodo*>& p) {this->percorso=p;}
+    std::unordered_set<Nodo*>& get_closed_set() {return closed_set;}
+    void set_closed_set(const std::unordered_set<Nodo*>& cs) {this->closed_set=cs;}
 };
 #endif //A_STAR_SFML_PERSONAGGIO_H
