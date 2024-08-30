@@ -3,7 +3,7 @@ project(a_star_sfml)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(a_star_sfml main.cpp Griglia.h Personaggio.h Nodo.h test/test.cpp)
+add_executable(a_star_sfml main.cpp test/test.cpp)
 
 set(SFML_DIR "C:/SFML/lib/cmake/SFML")
 

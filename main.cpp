@@ -15,7 +15,6 @@ int main() {
     //CASO IN CUI NON ESISTE PERCORSO!
     //griglia.griglia[0][1].traversabile=false;griglia.griglia[1][0].traversabile=false;
     ///////////////////
-    // Generare ostacoli randomici
     griglia.genera_ostacoli_randomici(50); // Genera 50 ostacoli randomici
 
     Nodo* start = &griglia.griglia[0][0];
