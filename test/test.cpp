@@ -86,18 +86,23 @@ TEST(GrigliaTest, CalcolaH) {
     float h = griglia.calcola_h(nodo1, nodo2);
     EXPECT_EQ(h, 7);  // Distanza di Manhattan: |3-0| + |4-0| = 7
 }
-//TODO:Controllo percorso corretto predefinito
-TEST(PersonaggioTest, AStarFindsPath) {
+
+TEST(PersonaggioTestPercorsoMigliore, AStarFindsPath) {
     //Test percorso migliore
     Griglia griglia(5, 5);
     Nodo* start = &griglia.griglia[0][0];
     Nodo* goal = &griglia.griglia[4][0];
     //Blocco la parte centrale, mi aspetto che effettui il percorso di sopra
+    for(int x=1;x<griglia.larghezza-1;x++){
+        for(int y=1;y<griglia.altezza-1;y++)
+            griglia.griglia[x][y].traversabile=false;
+    }
     Personaggio personaggio(griglia, start, goal);
 
     personaggio.a_star();
 
     EXPECT_FALSE(personaggio.percorso.empty());
+    EXPECT_EQ(personaggio.percorso.size(), 5); //Mi aspetto che il percorso sia composto da 5 nodi e non 5+4+4 overo l'altro unico percorso
     EXPECT_EQ(personaggio.percorso.front(), goal);
     EXPECT_EQ(personaggio.percorso.back(), start);
 }
