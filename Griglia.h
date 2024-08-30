@@ -4,10 +4,10 @@
 #include<iostream>
 #include"Nodo.h"
 class Griglia {
-public:
+private:
     int larghezza, altezza;
     std::vector<std::vector<Nodo>> griglia;
-
+public:
     Griglia(int larghezza, int altezza)
             : larghezza(larghezza), altezza(altezza), griglia(larghezza, std::vector<Nodo>(altezza, Nodo(0, 0))) {
         for (int x = 0; x < larghezza; x++)
@@ -50,5 +50,12 @@ public:
     float calcola_h(Nodo& nodo, Nodo& nodo_finale) {
         return std::abs(nodo.get_x() - nodo_finale.get_x()) + std::abs(nodo.get_y() - nodo_finale.get_y());
     }
+
+    int get_larghezza() const {return larghezza;}
+    void set_larghezza(int l) {this->larghezza = l;}
+    int get_altezza() const {return altezza;}
+    void set_altezza(int a) {this->altezza = a;}
+    std::vector<std::vector<Nodo>>& get_griglia() {return griglia;}
+    void set_griglia(std::vector<std::vector<Nodo>>& g) {this->griglia=g;}
 };
 #endif //A_STAR_SFML_GRIGLIA_H

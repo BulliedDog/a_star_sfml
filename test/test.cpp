@@ -39,16 +39,16 @@ TEST(NodoTest, OperatorEquality) {
 TEST(GrigliaTest, Constructor) {
     Griglia griglia(5, 5);
 
-    EXPECT_EQ(griglia.larghezza, 5);
-    EXPECT_EQ(griglia.altezza, 5);
-    EXPECT_EQ(griglia.griglia.size(), 5);
-    EXPECT_EQ(griglia.griglia[0].size(), 5);
+    EXPECT_EQ(griglia.get_larghezza(), 5);
+    EXPECT_EQ(griglia.get_altezza(), 5);
+    EXPECT_EQ(griglia.get_griglia().size(), 5);
+    EXPECT_EQ(griglia.get_griglia()[0].size(), 5);
 
-    for (int x = 0; x < griglia.larghezza; ++x) {
-        for (int y = 0; y < griglia.altezza; ++y) {
-            EXPECT_EQ(griglia.griglia[x][y].get_x(), x);
-            EXPECT_EQ(griglia.griglia[x][y].get_y(), y);
-            EXPECT_TRUE(griglia.griglia[x][y].get_traversabile());
+    for (int x = 0; x < griglia.get_larghezza(); ++x) {
+        for (int y = 0; y < griglia.get_altezza(); ++y) {
+            EXPECT_EQ(griglia.get_griglia()[x][y].get_x(), x);
+            EXPECT_EQ(griglia.get_griglia()[x][y].get_y(), y);
+            EXPECT_TRUE(griglia.get_griglia()[x][y].get_traversabile());
         }
     }
 }
@@ -58,9 +58,9 @@ TEST(GrigliaTest, GeneraOstacoliRandomici) {
     griglia.genera_ostacoli_randomici(5);
 
     int non_traversabile_count = 0;
-    for (int x = 0; x < griglia.larghezza; ++x) {
-        for (int y = 0; y < griglia.altezza; ++y) {
-            if (!griglia.griglia[x][y].get_traversabile()) {
+    for (int x = 0; x < griglia.get_larghezza(); ++x) {
+        for (int y = 0; y < griglia.get_altezza(); ++y) {
+            if (!griglia.get_griglia()[x][y].get_traversabile()) {
                 non_traversabile_count++;
             }
         }
@@ -71,15 +71,15 @@ TEST(GrigliaTest, GeneraOstacoliRandomici) {
 
 TEST(GrigliaTest, NodoVicini) {
     Griglia griglia(5, 5);
-    Nodo& nodo = griglia.griglia[2][2];
+    Nodo& nodo = griglia.get_griglia()[2][2];
     auto vicini = griglia.nodo_vicini(nodo);
 
     EXPECT_EQ(vicini.size(), 4);  // Il nodo al centro deve avere 4 vicini
 
-    EXPECT_NE(std::find(vicini.begin(), vicini.end(), &griglia.griglia[1][2]), vicini.end());
-    EXPECT_NE(std::find(vicini.begin(), vicini.end(), &griglia.griglia[3][2]), vicini.end());
-    EXPECT_NE(std::find(vicini.begin(), vicini.end(), &griglia.griglia[2][1]), vicini.end());
-    EXPECT_NE(std::find(vicini.begin(), vicini.end(), &griglia.griglia[2][3]), vicini.end());
+    EXPECT_NE(std::find(vicini.begin(), vicini.end(), &griglia.get_griglia()[1][2]), vicini.end());
+    EXPECT_NE(std::find(vicini.begin(), vicini.end(), &griglia.get_griglia()[3][2]), vicini.end());
+    EXPECT_NE(std::find(vicini.begin(), vicini.end(), &griglia.get_griglia()[2][1]), vicini.end());
+    EXPECT_NE(std::find(vicini.begin(), vicini.end(), &griglia.get_griglia()[2][3]), vicini.end());
 }
 
 TEST(GrigliaTest, CalcolaH) {
@@ -94,12 +94,12 @@ TEST(GrigliaTest, CalcolaH) {
 TEST(PersonaggioTestPercorsoMigliore, AStarFindsPath) {
     //Test percorso migliore
     Griglia griglia(5, 5);
-    Nodo* start = &griglia.griglia[0][0];
-    Nodo* goal = &griglia.griglia[4][0];
+    Nodo* start = &griglia.get_griglia()[0][0];
+    Nodo* goal = &griglia.get_griglia()[4][0];
     //Blocco la parte centrale, mi aspetto che effettui il percorso di sopra
-    for(int x=1;x<griglia.larghezza-1;x++){
-        for(int y=1;y<griglia.altezza-1;y++)
-            griglia.griglia[x][y].set_traversabile(false);
+    for(int x=1;x<griglia.get_larghezza()-1;x++){
+        for(int y=1;y<griglia.get_altezza()-1;y++)
+            griglia.get_griglia()[x][y].set_traversabile(false);
     }
     Personaggio personaggio(griglia, start, goal);
 
@@ -113,8 +113,8 @@ TEST(PersonaggioTestPercorsoMigliore, AStarFindsPath) {
 TEST(PersonaggioTest, AStarFindsPath) {
     //Test con tutte caselle libere
     Griglia griglia(5, 5);
-    Nodo* start = &griglia.griglia[0][0];
-    Nodo* goal = &griglia.griglia[4][4];
+    Nodo* start = &griglia.get_griglia()[0][0];
+    Nodo* goal = &griglia.get_griglia()[4][4];
     Personaggio personaggio(griglia, start, goal);
 
     personaggio.a_star();
@@ -127,14 +127,14 @@ TEST(PersonaggioTest, AStarFindsPath) {
 TEST(PersonaggioTest, AStarHandlesObstacles) {
     //Test con tutte caselle occupate
     Griglia griglia(5, 5);
-    Nodo* start = &griglia.griglia[0][0];
-    Nodo* goal = &griglia.griglia[4][4];
+    Nodo* start = &griglia.get_griglia()[0][0];
+    Nodo* goal = &griglia.get_griglia()[4][4];
 
-    griglia.griglia[1][0].set_traversabile(false);
-    griglia.griglia[1][1].set_traversabile(false);
-    griglia.griglia[1][2].set_traversabile(false);
-    griglia.griglia[1][3].set_traversabile(false);
-    griglia.griglia[1][4].set_traversabile(false);
+    griglia.get_griglia()[1][0].set_traversabile(false);
+    griglia.get_griglia()[1][1].set_traversabile(false);
+    griglia.get_griglia()[1][2].set_traversabile(false);
+    griglia.get_griglia()[1][3].set_traversabile(false);
+    griglia.get_griglia()[1][4].set_traversabile(false);
 
     Personaggio personaggio(griglia, start, goal);
     personaggio.a_star();

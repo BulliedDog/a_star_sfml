@@ -14,8 +14,8 @@ int main() {
     ///////////////////
     griglia.genera_ostacoli_randomici(50);
 
-    Nodo* start = &griglia.griglia[0][0]; //Colore Blue
-    Nodo* goal = &griglia.griglia[19][19]; //Colore Verde
+    Nodo* start = &griglia.get_griglia()[0][0]; //Colore Blue
+    Nodo* goal = &griglia.get_griglia()[19][19]; //Colore Verde
 
     Personaggio personaggio(griglia, start, goal);
     personaggio.a_star();
@@ -35,7 +35,7 @@ int main() {
             for (int y = 0; y < altezza; ++y) {
                 sf::RectangleShape rect(sf::Vector2f(40, 40));
                 rect.setPosition(x * 40, y * 40);
-                rect.setFillColor(griglia.griglia[x][y].get_traversabile() ? sf::Color::Black : sf::Color::Red);
+                rect.setFillColor(griglia.get_griglia()[x][y].get_traversabile() ? sf::Color::Black : sf::Color::Red);
                 if(start->get_x()==x&&start->get_y()==y)
                     rect.setFillColor(sf::Color::Blue);
                 if(goal->get_x()==x&&goal->get_y()==y)
