@@ -1,6 +1,7 @@
 #ifndef A_STAR_SFML_NODO_H
 #define A_STAR_SFML_NODO_H
 class Nodo {
+    //TODO: rendere attributi privati
 public:
     int x, y;
     bool traversabile;
@@ -11,7 +12,7 @@ public:
             : x(x), y(y), traversabile(traversabile), g(0), h(0), f(0), genitore(nullptr) {}
 
     bool operator<(const Nodo& other) const {
-        return f > other.f; // Inverted for min-heap behavior in priority queue
+        return f > other.f; // Inverted per far scegliere il nodo con f più piccolo nella priority queue
     }
 
     bool operator==(const Nodo& other) const {

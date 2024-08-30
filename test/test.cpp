@@ -86,7 +86,7 @@ TEST(GrigliaTest, CalcolaH) {
     float h = griglia.calcola_h(nodo1, nodo2);
     EXPECT_EQ(h, 7);  // Distanza di Manhattan: |3-0| + |4-0| = 7
 }
-
+//TODO:Controllo percorso corretto predefinito
 TEST(PersonaggioTest, AStarFindsPath) {
     //Test con tutte caselle libere
     Griglia griglia(5, 5);

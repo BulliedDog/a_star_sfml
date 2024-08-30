@@ -60,7 +60,7 @@ public:
             }
         }
     }
-
+    //TODO:rendere privata
     void costruisci_percorso(Nodo* nodo) {
         while (nodo != nullptr) {
             percorso.push_back(nodo);

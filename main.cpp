@@ -15,10 +15,10 @@ int main() {
     //CASO IN CUI NON ESISTE PERCORSO!
     //griglia.griglia[0][1].traversabile=false;griglia.griglia[1][0].traversabile=false;
     ///////////////////
-    griglia.genera_ostacoli_randomici(50); // Genera 50 ostacoli randomici
+    griglia.genera_ostacoli_randomici(50);
 
-    Nodo* start = &griglia.griglia[0][0];
-    Nodo* goal = &griglia.griglia[19][19];
+    Nodo* start = &griglia.griglia[0][0]; //Colore Blue
+    Nodo* goal = &griglia.griglia[19][19]; //Colore Verde
 
     Personaggio personaggio(griglia, start, goal);
     personaggio.a_star();
@@ -39,6 +39,10 @@ int main() {
                 sf::RectangleShape rect(sf::Vector2f(40, 40));
                 rect.setPosition(x * 40, y * 40);
                 rect.setFillColor(griglia.griglia[x][y].traversabile ? sf::Color::Black : sf::Color::Red);
+                if(start->x==x&&start->y==y)
+                    rect.setFillColor(sf::Color::Blue);
+                if(goal->x==x&&goal->y==y)
+                    rect.setFillColor(sf::Color::Green);
                 rect.setOutlineColor(sf::Color::Red);
                 rect.setOutlineThickness(1);
                 window.draw(rect);
