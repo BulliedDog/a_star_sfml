@@ -14,6 +14,15 @@ struct CompareNodo {
     }
 };
 class Personaggio {
+private:
+
+    //reso metodo privato poiché chiamato soltanto da metodo a_star()
+    void costruisci_percorso(Nodo* nodo) {
+        while (nodo != nullptr) {
+            percorso.push_back(nodo);
+            nodo = nodo->genitore;
+        }
+    }
 public:
     Griglia& griglia;
     Nodo* start;
@@ -58,13 +67,6 @@ public:
                     open_set.push(vicino);
                 }
             }
-        }
-    }
-    //TODO:rendere privata
-    void costruisci_percorso(Nodo* nodo) {
-        while (nodo != nullptr) {
-            percorso.push_back(nodo);
-            nodo = nodo->genitore;
         }
     }
 
