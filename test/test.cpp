@@ -7,20 +7,20 @@
 TEST(NodoTest, Constructor) {
     Nodo nodo(1, 2, true);
 
-    EXPECT_EQ(nodo.x, 1);   //EXPECT_EQ = valore aspettato nell'inizializzazione
-    EXPECT_EQ(nodo.y, 2);
-    EXPECT_TRUE(nodo.traversabile);
-    EXPECT_FLOAT_EQ(nodo.g, 0.0);
-    EXPECT_FLOAT_EQ(nodo.h, 0.0);
-    EXPECT_FLOAT_EQ(nodo.f, 0.0);
-    EXPECT_EQ(nodo.genitore, nullptr);
+    EXPECT_EQ(nodo.get_x(), 1);   //EXPECT_EQ = valore aspettato nell'inizializzazione
+    EXPECT_EQ(nodo.get_y(), 2);
+    EXPECT_TRUE(nodo.get_traversabile());
+    EXPECT_FLOAT_EQ(nodo.get_g(), 0.0);
+    EXPECT_FLOAT_EQ(nodo.get_h(), 0.0);
+    EXPECT_FLOAT_EQ(nodo.get_f(), 0.0);
+    EXPECT_EQ(nodo.get_genitore(), nullptr);
 }
 TEST(NodoTest, OperatorLessThan) {
     Nodo nodo1(0, 0);
     Nodo nodo2(1, 1);
 
-    nodo1.f = 4.0;
-    nodo2.f = 3.0;
+    nodo1.set_f(4.0);
+    nodo2.set_f(3.0);
 
     EXPECT_TRUE(nodo1 < nodo2);  // OPERATORE INVERTITO PER LA PRIORITY QUEUE!
 }
@@ -42,9 +42,9 @@ TEST(GrigliaTest, Constructor) {
 
     for (int x = 0; x < griglia.larghezza; ++x) {
         for (int y = 0; y < griglia.altezza; ++y) {
-            EXPECT_EQ(griglia.griglia[x][y].x, x);
-            EXPECT_EQ(griglia.griglia[x][y].y, y);
-            EXPECT_TRUE(griglia.griglia[x][y].traversabile);
+            EXPECT_EQ(griglia.griglia[x][y].get_x(), x);
+            EXPECT_EQ(griglia.griglia[x][y].get_y(), y);
+            EXPECT_TRUE(griglia.griglia[x][y].get_traversabile());
         }
     }
 }
@@ -56,7 +56,7 @@ TEST(GrigliaTest, GeneraOstacoliRandomici) {
     int non_traversabile_count = 0;
     for (int x = 0; x < griglia.larghezza; ++x) {
         for (int y = 0; y < griglia.altezza; ++y) {
-            if (!griglia.griglia[x][y].traversabile) {
+            if (!griglia.griglia[x][y].get_traversabile()) {
                 non_traversabile_count++;
             }
         }
@@ -95,7 +95,7 @@ TEST(PersonaggioTestPercorsoMigliore, AStarFindsPath) {
     //Blocco la parte centrale, mi aspetto che effettui il percorso di sopra
     for(int x=1;x<griglia.larghezza-1;x++){
         for(int y=1;y<griglia.altezza-1;y++)
-            griglia.griglia[x][y].traversabile=false;
+            griglia.griglia[x][y].set_traversabile(false);
     }
     Personaggio personaggio(griglia, start, goal);
 
@@ -126,11 +126,11 @@ TEST(PersonaggioTest, AStarHandlesObstacles) {
     Nodo* start = &griglia.griglia[0][0];
     Nodo* goal = &griglia.griglia[4][4];
 
-    griglia.griglia[1][0].traversabile = false;
-    griglia.griglia[1][1].traversabile = false;
-    griglia.griglia[1][2].traversabile = false;
-    griglia.griglia[1][3].traversabile = false;
-    griglia.griglia[1][4].traversabile = false;
+    griglia.griglia[1][0].set_traversabile(false);
+    griglia.griglia[1][1].set_traversabile(false);
+    griglia.griglia[1][2].set_traversabile(false);
+    griglia.griglia[1][3].set_traversabile(false);
+    griglia.griglia[1][4].set_traversabile(false);
 
     Personaggio personaggio(griglia, start, goal);
     personaggio.a_star();

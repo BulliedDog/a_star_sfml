@@ -27,8 +27,8 @@ public:
                 continue;
             }
 
-            if (griglia[x][y].traversabile) {
-                griglia[x][y].traversabile = false;
+            if (griglia[x][y].get_traversabile()) {
+                griglia[x][y].set_traversabile(false);
                 ostacoli_generati++;
             }
         }
@@ -36,19 +36,19 @@ public:
 
     std::vector<Nodo*> nodo_vicini(Nodo& nodo) {
         std::vector<Nodo*> vicini;
-        if (nodo.x > 0)
-            vicini.push_back(&griglia[nodo.x - 1][nodo.y]);
-        if (nodo.x < larghezza - 1)
-            vicini.push_back(&griglia[nodo.x + 1][nodo.y]);
-        if (nodo.y > 0)
-            vicini.push_back(&griglia[nodo.x][nodo.y - 1]);
-        if (nodo.y < altezza - 1)
-            vicini.push_back(&griglia[nodo.x][nodo.y + 1]);
+        if (nodo.get_x() > 0)
+            vicini.push_back(&griglia[nodo.get_x() - 1][nodo.get_y()]);
+        if (nodo.get_x() < larghezza - 1)
+            vicini.push_back(&griglia[nodo.get_x() + 1][nodo.get_y()]);
+        if (nodo.get_y() > 0)
+            vicini.push_back(&griglia[nodo.get_x()][nodo.get_y() - 1]);
+        if (nodo.get_y() < altezza - 1)
+            vicini.push_back(&griglia[nodo.get_x()][nodo.get_y() + 1]);
         return vicini;
     }
 
     float calcola_h(Nodo& nodo, Nodo& nodo_finale) {
-        return std::abs(nodo.x - nodo_finale.x) + std::abs(nodo.y - nodo_finale.y);
+        return std::abs(nodo.get_x() - nodo_finale.get_x()) + std::abs(nodo.get_y() - nodo_finale.get_y());
     }
 };
 #endif //A_STAR_SFML_GRIGLIA_H

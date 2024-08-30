@@ -10,17 +10,16 @@
 #include <cmath>
 struct CompareNodo {
     bool operator()(const Nodo* lhs, const Nodo* rhs) const {
-        return lhs->f > rhs->f;  // Min-heap: smallest f value has the highest priority
+        return lhs->get_f() > rhs->get_f();  // Min-heap: smallest f value has the highest priority
     }
 };
 class Personaggio {
 private:
-
     //reso metodo privato poiché chiamato soltanto da metodo a_star()
     void costruisci_percorso(Nodo* nodo) {
         while (nodo != nullptr) {
             percorso.push_back(nodo);
-            nodo = nodo->genitore;
+            nodo = nodo->get_genitore();
         }
     }
 public:
@@ -35,9 +34,9 @@ public:
 
     void a_star() {
         std::priority_queue<Nodo*,std::vector<Nodo*>,CompareNodo> open_set; //Uso compare nodo per far sì che priority_queu ordini con f più piccolo
-        start->g = 0;
-        start->h = griglia.calcola_h(*start, *goal);
-        start->f = start->g + start->h;
+        start->set_g(0);
+        start->set_h(griglia.calcola_h(*start, *goal));
+        start->set_f(start->get_g() + start->get_h());
         open_set.push(start);
 
         while (!open_set.empty()) {
@@ -54,15 +53,15 @@ public:
             auto vicini = griglia.nodo_vicini(*current_node);
             for (auto vicino : vicini) {
 
-                if (!vicino->traversabile || closed_set.count(vicino))
+                if (!vicino->get_traversabile() || closed_set.count(vicino))
                     continue; //salta al loop successivo
 
-                float nuovo_g = current_node->g + 1;
-                if (nuovo_g < vicino->g || vicino->g == 0) {
-                    vicino->g = nuovo_g;
-                    vicino->h = griglia.calcola_h(*vicino, *goal);
-                    vicino->f = vicino->g + vicino->h;
-                    vicino->genitore = current_node;
+                float nuovo_g = current_node->get_g() + 1;
+                if (nuovo_g < vicino->get_g() || vicino->get_g() == 0) {
+                    vicino->set_g(nuovo_g);
+                    vicino->set_h(griglia.calcola_h(*vicino, *goal));
+                    vicino->set_f(vicino->get_g() + vicino->get_h());
+                    vicino->set_genitore(current_node);
 
                     open_set.push(vicino);
                 }
@@ -73,7 +72,7 @@ public:
     void mostra_percorso(sf::RenderWindow& window) {
         for (auto nodo : percorso) {
             sf::CircleShape cerchio(10);
-            cerchio.setPosition(nodo->x * 40+10, nodo->y * 40+10);
+            cerchio.setPosition(nodo->get_x() * 40+10, nodo->get_y() * 40+10);
             cerchio.setFillColor(sf::Color::Yellow);
             window.draw(cerchio);
         }

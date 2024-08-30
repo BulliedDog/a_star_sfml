@@ -38,10 +38,10 @@ int main() {
             for (int y = 0; y < altezza; ++y) {
                 sf::RectangleShape rect(sf::Vector2f(40, 40));
                 rect.setPosition(x * 40, y * 40);
-                rect.setFillColor(griglia.griglia[x][y].traversabile ? sf::Color::Black : sf::Color::Red);
-                if(start->x==x&&start->y==y)
+                rect.setFillColor(griglia.griglia[x][y].get_traversabile() ? sf::Color::Black : sf::Color::Red);
+                if(start->get_x()==x&&start->get_y()==y)
                     rect.setFillColor(sf::Color::Blue);
-                if(goal->x==x&&goal->y==y)
+                if(goal->get_x()==x&&goal->get_y()==y)
                     rect.setFillColor(sf::Color::Green);
                 rect.setOutlineColor(sf::Color::Red);
                 rect.setOutlineThickness(1);
