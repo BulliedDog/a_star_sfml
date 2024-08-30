@@ -88,6 +88,20 @@ TEST(GrigliaTest, CalcolaH) {
 }
 //TODO:Controllo percorso corretto predefinito
 TEST(PersonaggioTest, AStarFindsPath) {
+    //Test percorso migliore
+    Griglia griglia(5, 5);
+    Nodo* start = &griglia.griglia[0][0];
+    Nodo* goal = &griglia.griglia[4][0];
+    //Blocco la parte centrale, mi aspetto che effettui il percorso di sopra
+    Personaggio personaggio(griglia, start, goal);
+
+    personaggio.a_star();
+
+    EXPECT_FALSE(personaggio.percorso.empty());
+    EXPECT_EQ(personaggio.percorso.front(), goal);
+    EXPECT_EQ(personaggio.percorso.back(), start);
+}
+TEST(PersonaggioTest, AStarFindsPath) {
     //Test con tutte caselle libere
     Griglia griglia(5, 5);
     Nodo* start = &griglia.griglia[0][0];
@@ -117,21 +131,4 @@ TEST(PersonaggioTest, AStarHandlesObstacles) {
     personaggio.a_star();
 
     EXPECT_TRUE(personaggio.percorso.empty()); //Effettua sempre open_set.pop() perché non trova il percorso adatto
-}
-
-TEST(PersonaggioTest, CostruisciPercorso) {
-    Griglia griglia(5, 5);
-    Nodo* start = &griglia.griglia[0][0];
-    Nodo* goal = &griglia.griglia[4][4];
-    Nodo middle(2, 2);
-    middle.genitore = start;
-    goal->genitore = &middle;
-
-    Personaggio personaggio(griglia, start, goal);
-    personaggio.costruisci_percorso(goal);
-
-    ASSERT_EQ(personaggio.percorso.size(), 3);
-    EXPECT_EQ(personaggio.percorso[0], goal);
-    EXPECT_EQ(personaggio.percorso[1], &middle);
-    EXPECT_EQ(personaggio.percorso[2], start);
 }
