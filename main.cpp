@@ -40,7 +40,7 @@ int main() {
                 sf::RectangleShape rect(sf::Vector2f(40, 40));
                 rect.setPosition(x * 40, y * 40);
                 rect.setFillColor(griglia.griglia[x][y].traversabile ? sf::Color::Black : sf::Color::Red);
-                rect.setOutlineColor(sf::Color::White);
+                rect.setOutlineColor(sf::Color::Red);
                 rect.setOutlineThickness(1);
                 window.draw(rect);
             }

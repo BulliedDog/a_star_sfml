@@ -22,7 +22,7 @@ TEST(NodoTest, OperatorLessThan) {
     nodo1.f = 4.0;
     nodo2.f = 3.0;
 
-    EXPECT_TRUE(nodo1 < nodo2);  // OPERATORE INVERTITO!
+    EXPECT_TRUE(nodo1 < nodo2);  // OPERATORE INVERTITO PER LA PRIORITY QUEUE!
 }
 TEST(NodoTest, OperatorEquality) {
     Nodo nodo1(0, 0);
@@ -62,7 +62,7 @@ TEST(GrigliaTest, GeneraOstacoliRandomici) {
         }
     }
 
-    EXPECT_EQ(non_traversabile_count, 5);  // Assuming random generation works without issues
+    EXPECT_EQ(non_traversabile_count, 5);
 }
 
 TEST(GrigliaTest, NodoVicini) {
@@ -70,7 +70,7 @@ TEST(GrigliaTest, NodoVicini) {
     Nodo& nodo = griglia.griglia[2][2];
     auto vicini = griglia.nodo_vicini(nodo);
 
-    EXPECT_EQ(vicini.size(), 4);  // Node in the middle of a 5x5 grid should have 4 neighbors
+    EXPECT_EQ(vicini.size(), 4);  // Il nodo al centro deve avere 4 vicini
 
     EXPECT_NE(std::find(vicini.begin(), vicini.end(), &griglia.griglia[1][2]), vicini.end());
     EXPECT_NE(std::find(vicini.begin(), vicini.end(), &griglia.griglia[3][2]), vicini.end());
@@ -84,7 +84,7 @@ TEST(GrigliaTest, CalcolaH) {
     Nodo nodo2(3, 4);
 
     float h = griglia.calcola_h(nodo1, nodo2);
-    EXPECT_EQ(h, 7);  // Manhattan distance: |3-0| + |4-0| = 7
+    EXPECT_EQ(h, 7);  // Distanza di Manhattan: |3-0| + |4-0| = 7
 }
 
 TEST(PersonaggioTest, AStarFindsPath) {
@@ -107,7 +107,6 @@ TEST(PersonaggioTest, AStarHandlesObstacles) {
     Nodo* start = &griglia.griglia[0][0];
     Nodo* goal = &griglia.griglia[4][4];
 
-    // Block a straight path and force a detour
     griglia.griglia[1][0].traversabile = false;
     griglia.griglia[1][1].traversabile = false;
     griglia.griglia[1][2].traversabile = false;
@@ -117,7 +116,7 @@ TEST(PersonaggioTest, AStarHandlesObstacles) {
     Personaggio personaggio(griglia, start, goal);
     personaggio.a_star();
 
-    EXPECT_TRUE(personaggio.percorso.empty());
+    EXPECT_TRUE(personaggio.percorso.empty()); //Effettua sempre open_set.pop() perché non trova il percorso adatto
 }
 
 TEST(PersonaggioTest, CostruisciPercorso) {
@@ -131,7 +130,7 @@ TEST(PersonaggioTest, CostruisciPercorso) {
     Personaggio personaggio(griglia, start, goal);
     personaggio.costruisci_percorso(goal);
 
-    ASSERT_EQ(personaggio.percorso.size(), 3);  // Should have start, middle, and goal
+    ASSERT_EQ(personaggio.percorso.size(), 3);
     EXPECT_EQ(personaggio.percorso[0], goal);
     EXPECT_EQ(personaggio.percorso[1], &middle);
     EXPECT_EQ(personaggio.percorso[2], start);
