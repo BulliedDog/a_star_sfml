@@ -91,7 +91,7 @@ TEST(GrigliaTest, CalcolaH) {
     EXPECT_EQ(h, 7);  // Distanza di Manhattan: |3-0| + |4-0| = 7
 }
 
-TEST(PersonaggioTestPercorsoMigliore, AStarFindsPath) {
+TEST(PersonaggioTestPercorsoMigliore, AStarFindsBestPath) {
     //Test percorso migliore
     Griglia griglia(5, 5);
     Nodo* start = &griglia.get_griglia()[0][0];
